@@ -41,8 +41,11 @@ async function bootstrap() {
   // để người dùng có thể xem và tương tác với API
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
+   
+
 
   const port = configService.get('PORT');
+  app.enableCors();
   await app.listen(process.env.PORT || 5000, '0.0.0.0');
   console.log(`Application is running on: http://localhost:${port}`);
   console.log(`Swagger Docs: http://localhost:${port}/api-docs`);
