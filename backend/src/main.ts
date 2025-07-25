@@ -24,8 +24,17 @@ async function bootstrap() {
   // và sử dụng trong các middleware hoặc guards
   app.use(cookieParser());
   app.setGlobalPrefix('api');
-  app.use(helmet()); // Bảo mật HTTP headers (chống XSS, clickjacking, vv.)
-  app.enableCors({ origin: true, credentials: true }); // Cho phép CORS với cookie/session
+  app.use(helmet({
+  crossOriginResourcePolicy: false,})); // Bảo mật HTTP headers (chống XSS, clickjacking, vv.)
+  // Cấu hình CORS
+  // cho phép truy cập từ mọi nguồn
+  app.enableCors({
+  origin: ['hhttps://project-02-nweb.onrender.com'], // hoặc '*' để cho phép tất cả
+  allowedHeaders: ['Content-Type', 'Authorization'], // Các header được phép
+  credentials: true, // Cho phép gửi cookie/token
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  });
+
 
   // Cấu hình Swagger
   const config = new DocumentBuilder()
@@ -43,10 +52,10 @@ async function bootstrap() {
   SwaggerModule.setup('api-docs', app, document);
    
 
-
-  const port = configService.get('PORT');
-  app.enableCors();
-  await app.listen(process.env.PORT || 5000, '0.0.0.0');
+  // Lấy cổng từ biến môi trường hoặc từ ConfigService
+  const port = process.env.PORT || configService.get('PORT') || 5000;
+  await app.listen(port, '0.0.0.0');
+  // In ra thông tin ứng dụng đang chạy
   console.log(`Application is running on: http://localhost:${port}`);
   console.log(`Swagger Docs: http://localhost:${port}/api-docs`);
 }
