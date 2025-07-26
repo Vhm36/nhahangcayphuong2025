@@ -38,7 +38,7 @@ async function bootstrap() {
 
   // Cấu hình Swagger
   const config = new DocumentBuilder()
-    .setTitle('API Documentation')
+    .setTitle('APi')
     .setDescription('The API description')
     .setVersion('1.0')
     .addBearerAuth() // Nếu dùng JWT  

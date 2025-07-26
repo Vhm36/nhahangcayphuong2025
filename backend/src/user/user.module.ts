@@ -3,7 +3,6 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schemas/user.schema';
-
 @Module({
   // Import MongooseModule và đăng ký schema User để kết nối với collection users trong MongoDB
   imports: [
@@ -13,5 +12,12 @@ import { User, UserSchema } from './schemas/user.schema';
   controllers: [UserController],
   // Khai báo service xử lý logic nghiệp vụ liên quan đến user
   providers: [UserService],
+   exports: [UserService] // Xuất UserService để có thể sử dụng ở các module khác nếu cần
 })
 export class UserModule { }
+
+
+// Them mới: Đảm bảo rằng UserModule được import trong AppModule
+
+
+

@@ -1,10 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "declaration": true,
-    "removeComments": true
+    "types": ["jest", "node"],
+    "typeRoots": ["./node_modules/@types"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "./dist" // Đảm bảo thư mục đầu ra cho các tệp kiểm thử
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+  "include": ["src/**/*.spec.ts", "src/**/*.test.ts", "src/**/*.ts"],
+  "exclude": ["node_modules", "test", "dist","      **/*.spec.ts", "**/*.test.ts"]
 }
